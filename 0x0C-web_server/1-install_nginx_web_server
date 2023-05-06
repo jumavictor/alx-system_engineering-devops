@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Update the system packages
+apt-get update
+
+# Install NGINX
+apt-get install -y nginx
+
+# Configure NGINX to listen on port 80
+sed -i 's/listen 80 default_server/listen 80/' /etc/nginx/sites-available/default
+
+# Restart NGINX
+service nginx restart
+
+# Create the default HTML file
+echo "Hello World!" > /var/www/html/index.html
+
+# Make sure the HTML file is owned by the www-data user
+chown www-data:www-data /var/www/html/index.html
